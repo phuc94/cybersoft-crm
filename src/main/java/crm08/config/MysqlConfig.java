@@ -15,9 +15,6 @@ public class MysqlConfig {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(url, user, password);
-			if (conn != null) {
-				System.out.println("Connected to the database!");
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
