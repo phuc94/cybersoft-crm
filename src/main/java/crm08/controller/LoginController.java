@@ -10,57 +10,47 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import crm08.config.MysqlConfig;
 import crm08.entity.UserEntity;
+import services.UserService;
 
 @WebServlet(name = "loginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("login.html").forward(req, resp);
+		req.getRequestDispatcher("login.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		String remember = req.getParameter("remember-me");
+		String remember = req.getParameter("remember-me");
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		List<UserEntity> listUser = new ArrayList<UserEntity>();
 
-		String query = "SELECT u.email, u.password \n"
-				+ "FROM users u\n"
-				+ "WHERE u.email = ? AND u.password = ?";
-		Connection connection = MysqlConfig.getConnection();
-
-		try {
-			PreparedStatement statement = connection.prepareStatement(query);
-			statement.setString(1, email);
-			statement.setString(2, password);
-			
-			ResultSet result = statement.executeQuery();
-			while (result.next()) {
-				UserEntity user = new UserEntity();
-				user.setEmail(result.getString("email"));
-				System.out.println(result.getString("email"));
-				listUser.add(user);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		UserService userService = new UserService();
+		List<UserEntity> listUser = userService.authenticateUser(email, password);
 		
 		if(listUser.size() > 0) {
-			System.out.println("OKEEEEEEEEEEEEEEEE");
+			if (remember != null) {
+				Cookie ckEmail = new Cookie("email", email);
+				Cookie ckPassword = new Cookie("password", password);
+				resp.addCookie(ckPassword);
+				resp.addCookie(ckEmail);
+			}
+			Cookie ckRole = new Cookie("role", listUser.get(0).getRole().getName());
+			resp.addCookie(ckRole);
+
 			req.getRequestDispatcher("index.html").forward(req, resp);
 		} else {
-			System.out.println("FAILLLLLLLLLLLLLLLLLL");
+			req.setAttribute("message", "Login failed!");
+			req.getRequestDispatcher("login.jsp").forward(req, resp);
 		}
-		
 			
 	}
 
