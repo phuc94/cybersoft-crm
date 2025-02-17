@@ -15,11 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebFilter(filterName = "authenFilter", urlPatterns = {
-	"/user*",
-	"/role*",
-	"/task*",
-	"/profile*",
-	"/groupwork*",
+	"/user",
+	"/user-add",
+	"/user-details",
+	"/role-table",
+	"/role-add",
+	"/task",
+	"/task-add",
+	"/profile",
+	"/profile-edit",
+	"/groupwork",
+	"/groupwork-add",
+	"/groupwork-details",
 })
 public class AuthenticationFilter implements Filter {
 	private static String ADMIN = "ROLE_ADMIN";
@@ -35,86 +42,88 @@ public class AuthenticationFilter implements Filter {
 		String roleName = "";
 		String path = req.getServletPath();
 		List<String> allowedRoles = new ArrayList<String>();
-		
-		if (reqCookies == null) {
-				System.out.println("user authenticate");
+
+		if (reqCookies.length == 0) {
 			req.getRequestDispatcher("login.jsp").forward(req, res);
+			return;
 		} else {
 			for (Cookie cookie : reqCookies) {
-				if (cookie.getName() == "role") {
+				if (cookie.getName().equals("role")) {
 					roleName = cookie.getValue();
 				}
 			}
 		}
 		
 		if (roleName.isEmpty()) {
-			System.out.println("user authenticate");
 			req.getRequestDispatcher("login.jsp").forward(req, res);
+			return;
 		}
 		
 		switch (path) {
-			case "user-add": {
+			case "/user-add": {
 				allowedRoles.add(ADMIN);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
 			}
-			case "user": {
-				System.out.println("user authenticate");
+			case "/user": {
 				allowedRoles.add(ADMIN);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
 			}
-			case "user-details": {
+			case "/user-details": {
 				allowedRoles.add(ADMIN);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
 			}
-			case "groupwork": {
+			case "/groupwork": {
 				allowedRoles.add(MANAGER);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
 			}
-			case "groupwork-add": {
-				allowedRoles.add(ADMIN);
+			case "/groupwork-add": {
+				allowedRoles.add(MANAGER);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
 			}
-			case "groupwork-details": {
-				allowedRoles.add(ADMIN);
+			case "/groupwork-details": {
+				allowedRoles.add(MANAGER);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
 			}
-			case "profile-edit": {
+			case "/profile": {
 				allowedRoles.add(ADMIN);
-				checkRole(roleName, allowedRoles, chain, req, res);
-				break;
-			}
-			case "profile": {
-				allowedRoles.add(ADMIN);
-				checkRole(roleName, allowedRoles, chain, req, res);
-				break;
-			}
-			case "task": {
 				allowedRoles.add(USER);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
 			}
-			case "task-add": {
+			case "/profile-edit": {
+				allowedRoles.add(ADMIN);
+				allowedRoles.add(USER);
+				checkRole(roleName, allowedRoles, chain, req, res);
+				break;
+			}
+			case "/task": {
+				allowedRoles.add(USER);
+				allowedRoles.add(MANAGER);
+				checkRole(roleName, allowedRoles, chain, req, res);
+				break;
+			}
+			case "/task-add": {
+				allowedRoles.add(MANAGER);
+				checkRole(roleName, allowedRoles, chain, req, res);
+				break;
+			}
+			case "/role": {
 				allowedRoles.add(ADMIN);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
 			}
-			case "role": {
+			case "/role-add": {
 				allowedRoles.add(ADMIN);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
 			}
-			case "role-add": {
-				allowedRoles.add(ADMIN);
-				checkRole(roleName, allowedRoles, chain, req, res);
-				break;
-			}
-			case "role-table": {
+			case "/role-table": {
 				allowedRoles.add(ADMIN);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
@@ -127,11 +136,10 @@ public class AuthenticationFilter implements Filter {
 	
 	private void checkRole(String role, List<String> allowedRole, FilterChain chain, HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException {
-//		chain.doFilter(req, res);
 		if (allowedRole.contains(role)) {
 			chain.doFilter(req, res);
 		} else {
-			req.getRequestDispatcher("login.jsp").forward(req, res);
+			req.getRequestDispatcher("blank.html").forward(req, res);
 		}
 	}
 	
