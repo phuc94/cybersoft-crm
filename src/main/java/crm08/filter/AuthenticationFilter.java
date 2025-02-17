@@ -37,6 +37,7 @@ public class AuthenticationFilter implements Filter {
 		List<String> allowedRoles = new ArrayList<String>();
 		
 		if (reqCookies == null) {
+				System.out.println("user authenticate");
 			req.getRequestDispatcher("login.jsp").forward(req, res);
 		} else {
 			for (Cookie cookie : reqCookies) {
@@ -47,6 +48,7 @@ public class AuthenticationFilter implements Filter {
 		}
 		
 		if (roleName.isEmpty()) {
+			System.out.println("user authenticate");
 			req.getRequestDispatcher("login.jsp").forward(req, res);
 		}
 		
@@ -56,7 +58,8 @@ public class AuthenticationFilter implements Filter {
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
 			}
-			case "user-table": {
+			case "user": {
+				System.out.println("user authenticate");
 				allowedRoles.add(ADMIN);
 				checkRole(roleName, allowedRoles, chain, req, res);
 				break;
