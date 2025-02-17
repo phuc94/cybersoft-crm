@@ -16,16 +16,16 @@ public class RoleController extends HttpServlet {
 		String servletPath = req.getServletPath();
 
 		switch (servletPath) {
-		case "/role-add": {
-			req.getRequestDispatcher("role-add.jsp").forward(req, resp);
-			break;
-		}
-		case "/role-table": {
-			req.getRequestDispatcher("role-table.jsp").forward(req, resp);
-			break;
-		}
-		default:
-			break;
+			case "/role-add": {
+				req.getRequestDispatcher("role-add.jsp").forward(req, resp);
+				break;
+			}
+			case "/role-table": {
+				req.getRequestDispatcher("role-table.jsp").forward(req, resp);
+				break;
+			}
+			default:
+				break;
 		}
 	}
 

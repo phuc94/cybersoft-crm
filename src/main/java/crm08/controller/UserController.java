@@ -16,20 +16,20 @@ public class UserController extends HttpServlet {
 		String servletPath = req.getServletPath();
 
 		switch (servletPath) {
-		case "/user": {
-			req.getRequestDispatcher("user.jsp").forward(req, resp);
-			break;
-		}
-		case "/user-add": {
-			req.getRequestDispatcher("user-add.jsp").forward(req, resp);
-			break;
-		}
-		case "/user-details": {
-			req.getRequestDispatcher("user-details.jsp").forward(req, resp);
-			break;
-		}
-		default:
-			break;
+			case "/user": {
+				req.getRequestDispatcher("user.jsp").forward(req, resp);
+				break;
+			}
+			case "/user-add": {
+				req.getRequestDispatcher("user-add.jsp").forward(req, resp);
+				break;
+			}
+			case "/user-details": {
+				req.getRequestDispatcher("user-details.jsp").forward(req, resp);
+				break;
+			}
+			default:
+				break;
 		}
 	}
 

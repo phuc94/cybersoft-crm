@@ -16,20 +16,20 @@ public class GroupworkController extends HttpServlet {
 		String servletPath = req.getServletPath();
 
 		switch (servletPath) {
-		case "/groupwork": {
-			req.getRequestDispatcher("groupwork.jsp").forward(req, resp);
-			break;
-		}
-		case "/groupwork-add": {
-			req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
-			break;
-		}
-		case "/groupwork-details": {
-			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
-			break;
-		}
-		default:
-			break;
+			case "/groupwork": {
+				req.getRequestDispatcher("groupwork.jsp").forward(req, resp);
+				break;
+			}
+			case "/groupwork-add": {
+				req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
+				break;
+			}
+			case "/groupwork-details": {
+				req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
+				break;
+			}
+			default:
+				break;
 		}
 	}
 

@@ -16,16 +16,16 @@ public class TaskController extends HttpServlet {
 		String servletPath = req.getServletPath();
 
 		switch (servletPath) {
-		case "/task": {
-			req.getRequestDispatcher("task.jsp").forward(req, resp);
-			break;
-		}
-		case "/task-add": {
-			req.getRequestDispatcher("task-add.jsp").forward(req, resp);
-			break;
-		}
-		default:
-			break;
+			case "/task": {
+				req.getRequestDispatcher("task.jsp").forward(req, resp);
+				break;
+			}
+			case "/task-add": {
+				req.getRequestDispatcher("task-add.jsp").forward(req, resp);
+				break;
+			}
+			default:
+				break;
 		}
 	}
 
