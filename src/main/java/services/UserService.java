@@ -26,4 +26,13 @@ public class UserService {
 		}
 	}
 
+	public List<UserEntity> getAllUsers() {
+		List<UserEntity> userList = userRepo.findAll();
+		if (userList.size() > 0) {
+			return userList;
+		} else {
+			return new ArrayList<UserEntity>();
+		}
+	}
+
 }

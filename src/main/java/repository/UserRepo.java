@@ -40,7 +40,7 @@ public class UserRepo {
 				user.setRole(userRole);
 				user.setId(results.getInt("id"));
 				user.setEmail(results.getString("email"));
-				user.setFullname(results.getString("fullname"));
+				user.setFullName(results.getString("fullname"));
 				user.setAvatar(results.getString("avatar"));
 				user.setPassword(results.getString("password"));
 				userList.add(user);
@@ -66,7 +66,7 @@ public class UserRepo {
 				UserEntity user = new UserEntity();
 				user.setId(results.getInt("id"));
 				user.setEmail(results.getString("email"));
-				user.setFullname(results.getString("fullname"));
+				user.setFullName(results.getString("fullname"));
 				user.setAvatar(results.getString("avatar"));
 				user.setPassword(results.getString("password"));
 				userList.add(user);

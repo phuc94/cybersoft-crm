@@ -1,6 +1,7 @@
 package crm08.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,8 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import crm08.entity.JobEntity;
+import services.GroupworkService;
+
 @WebServlet(name = "groupwork", urlPatterns = {"/groupwork", "/groupwork-add", "/groupwork-details"})
 public class GroupworkController extends HttpServlet {
+	
+	private GroupworkService groupworkService = new GroupworkService();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -17,7 +23,7 @@ public class GroupworkController extends HttpServlet {
 
 		switch (servletPath) {
 			case "/groupwork": {
-				req.getRequestDispatcher("groupwork.jsp").forward(req, resp);
+				getGroupwork(req, resp);
 				break;
 			}
 			case "/groupwork-add": {
@@ -31,6 +37,12 @@ public class GroupworkController extends HttpServlet {
 			default:
 				break;
 		}
+	}
+	
+	private void getGroupwork(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		List<JobEntity> jobs = groupworkService.findAll();
+		req.setAttribute("jobs", jobs);
+		req.getRequestDispatcher("groupwork.jsp").forward(req, resp);
 	}
 
 }

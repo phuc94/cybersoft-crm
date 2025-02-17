@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 
 <head>
@@ -148,28 +149,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Phân tích dự án</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="groupwork-details" class="btn btn-sm btn-info">Xem</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Thiết kế hệ thống</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="groupwork-details" class="btn btn-sm btn-info">Xem</a>
-                                            </td>
-                                        </tr>
+                                    	<c:forEach var="job" items="${jobs}">
+											<tr>
+												<td>${job.id}</td>
+												<td>${job.name}</td>
+												<td>${job.start_date}</td>
+												<td>${job.end_date}</td>
+												<td>
+													<a href="#" class="btn btn-sm btn-primary">Sửa</a>
+													<a href="#" class="btn btn-sm btn-danger">Xóa</a>
+													<a href="groupwork-details" class="btn btn-sm btn-info">Xem</a>
+												</td>
+											</tr>
+                                    	</c:forEach>
                                     </tbody>
                                 </table>
                             </div>

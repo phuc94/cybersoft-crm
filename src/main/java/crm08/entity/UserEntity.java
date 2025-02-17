@@ -11,7 +11,7 @@ public class UserEntity {
 		this.password = password;
 	}
 	private String avatar;
-	private String fullname;
+	private String fullName;
 	private RoleEntity role;
 
 	public String getAvatar() {
@@ -20,11 +20,11 @@ public class UserEntity {
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
-	public String getFullname() {
-		return fullname;
+	public String getFullName() {
+		return fullName;
 	}
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+	public void setFullName(String fullname) {
+		this.fullName = fullname;
 	}
 
 	public RoleEntity getRole() {

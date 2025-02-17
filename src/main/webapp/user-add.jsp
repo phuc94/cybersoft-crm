@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -159,14 +160,12 @@
                                             class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-12">Select Country</label>
+                                    <label class="col-sm-12">Select Role</label>
                                     <div class="col-sm-12">
                                         <select class="form-control form-control-line">
-                                            <option>London</option>
-                                            <option>India</option>
-                                            <option>Usa</option>
-                                            <option>Canada</option>
-                                            <option>Thailand</option>
+                                        	<c:forEach var="item" items="${roles}">
+												<option value="${item.id}">${item.description}</option>
+                                        	</c:forEach>
                                         </select>
                                     </div>
                                 </div>
