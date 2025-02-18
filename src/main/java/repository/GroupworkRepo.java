@@ -37,4 +37,27 @@ public class GroupworkRepo {
 		
 	}
 
+	public int saveGroupwork(String name, String startDate, String endDate) {
+		String query = "INSERT INTO jobs"
+				+ "(name, start_date, end_date)"
+				+ "VALUES"
+				+ "(?, ?, ?)";
+		int result = 0;
+
+		try {
+			Connection connection = MysqlConfig.getConnection();
+			PreparedStatement statement = connection.prepareStatement(query);
+			
+			statement.setString(1, name);
+			statement.setString(2, startDate);
+			statement.setString(3, endDate);
+			
+			result = statement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("RoleRepo:findAll: " + e.getLocalizedMessage());
+		}
+
+		return result;
+	}
+
 }

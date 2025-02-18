@@ -14,4 +14,13 @@ public class GroupworkService {
 		return groupworkRepo.findAll();
 		
 	}
+
+	public boolean saveRole(String name, String startDate, String endDate) {
+		if (groupworkRepo.saveGroupwork(name, startDate, endDate) == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

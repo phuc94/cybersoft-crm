@@ -37,5 +37,27 @@ public class RoleRepo {
 		return roleList;
 		
 	}
+	
+	public int saveRole(String name, String description) {
+		String query = "INSERT INTO roles"
+				+ "(name, description)"
+				+ "VALUES"
+				+ "(?, ?)";
+		int result = 0;
+
+		try {
+			Connection connection = MysqlConfig.getConnection();
+			PreparedStatement statement = connection.prepareStatement(query);
+			
+			statement.setString(1, name);
+			statement.setString(2, description);
+			
+			result = statement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("RoleRepo:findAll: " + e.getLocalizedMessage());
+		}
+
+		return result;
+	}
 
 }

@@ -52,7 +52,6 @@ public class TaskController extends HttpServlet {
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
 
-			//TODO
 			if(taskService.saveTask(task_name, start_date, end_date, user_id, job_id)) {
 				req.getRequestDispatcher("task.jsp").forward(req, resp);
 			} else {

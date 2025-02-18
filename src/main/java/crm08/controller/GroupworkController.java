@@ -38,6 +38,24 @@ public class GroupworkController extends HttpServlet {
 				break;
 		}
 	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String servletPath = req.getServletPath();
+		String name = req.getParameter("name");
+		String startDate = req.getParameter("start_date");
+		String endDate = req.getParameter("end_date");
+
+		if (servletPath.equals("/groupwork-add")) {
+			if (groupworkService.saveRole(name, startDate, endDate)) {
+				req.getRequestDispatcher("groupwork.jsp").forward(req, resp);
+			} else {
+				req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
+			}
+		} else {
+			req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
+		}
+	}
 	
 	private void getGroupwork(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<JobEntity> jobs = groupworkService.findAll();
