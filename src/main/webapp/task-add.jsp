@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,14 +135,14 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" action="task-add" method="post">
                                 <div class="form-group">
                                     <label class="col-md-12">Dự án</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
-                                            <option>Dự án CRM</option>
-                                            <option>Dự án Elearning</option>
-                                            <option>Dự án Rạp chiếu phim</option>
+                                        <select class="form-control form-control-line" name="job_id">
+                                        	<c:forEach var="job" items="${jobs}">
+												<option value="${job.id}">${job.name}</option>
+                                        	</c:forEach>
                                         </select>
                                     </div>
                                 </div>
@@ -149,16 +150,18 @@
                                     <label class="col-md-12">Tên công việc</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Tên công việc"
-                                            class="form-control form-control-line">
+                                            class="form-control form-control-line"
+                                            name="task_name"
+                                            >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Người thực hiện</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
-                                            <option>Nguyễn Văn Tèo</option>
-                                            <option>Trần Thị Lan</option>
-                                            <option>Cao Ngọc Hiếu</option>
+                                        <select class="form-control form-control-line" name="user_id">
+                                        	<c:forEach var="user" items="${users}">
+												<option value="${user.id}">${user.fullName}</option>
+                                        	</c:forEach>
                                         </select>
                                     </div>
                                 </div>
@@ -166,6 +169,7 @@
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="dd/MM/yyyy"
+                                        	type="date" name="start_date"
                                             class="form-control form-control-line"> 
                                     </div>
                                 </div>
@@ -173,6 +177,7 @@
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="dd/MM/yyyy"
+                                        	type="date" name="end_date"
                                             class="form-control form-control-line"> 
                                     </div>
                                 </div>

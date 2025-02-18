@@ -41,6 +41,28 @@ public class UserController extends HttpServlet {
 		}
 	}
 	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String servletPath = req.getServletPath();
+		if (servletPath.equals("/user-add")) {
+			String email = req.getParameter("email");
+			String password = req.getParameter("password");
+			String fullname = req.getParameter("fullname");
+			String avatar = req.getParameter("avatar");
+			String role_id = req.getParameter("role_id");
+			System.out.println(fullname);
+			if(userService.saveUser(email, password, fullname, avatar, role_id)) {
+				System.out.println("oke");
+				req.getRequestDispatcher("user.jsp").forward(req, resp);
+			} else {
+				req.getRequestDispatcher("user-add.jsp").forward(req, resp);
+			}
+		} else {
+			req.getRequestDispatcher("user-add.jsp").forward(req, resp);
+		}
+	}
+	
+	
 	private void getUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<UserEntity> userList = userService.getAllUsers();
 		req.setAttribute("users", userList);
@@ -54,7 +76,6 @@ public class UserController extends HttpServlet {
 		System.out.println(roleList.get(0).getName());
 		req.setAttribute("roles", roleList);
 		req.getRequestDispatcher("user-add.jsp").forward(req, resp);
-		
 	}
 
 }

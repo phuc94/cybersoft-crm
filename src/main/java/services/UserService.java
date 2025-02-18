@@ -34,5 +34,13 @@ public class UserService {
 			return new ArrayList<UserEntity>();
 		}
 	}
+	
+	public boolean saveUser(String email, String password, String fullname, String avatar, String role_id) {
+		if (userRepo.saveUser(email, password, fullname, avatar, role_id) == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

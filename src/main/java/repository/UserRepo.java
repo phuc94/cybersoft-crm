@@ -79,6 +79,29 @@ public class UserRepo {
 		return userList;
 	}
 	
+	public int saveUser(String email, String password, String fullname, String avatar, String role_id) {
+		String query = "INSERT INTO users\r\n"
+				+ "(email, password, fullname, avatar, role_id)\r\n"
+				+ "VALUES (?, ?, ?, ?, ?)";
+		int result = 0;
+
+		try {
+			Connection conn = MysqlConfig.getConnection();
+			PreparedStatement statement = conn.prepareStatement(query);
+			statement.setString(1, email);
+			statement.setString(2, password);
+			statement.setString(3, fullname);
+			statement.setString(4, avatar);
+			statement.setString(5, role_id);
+			result = statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("UserRepo:findAll: " + e.getLocalizedMessage());
+		}
+		
+		return result;
+	}
+	
 }
 
 

@@ -129,7 +129,7 @@
                         <h4 class="page-title">Danh sách công việc</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                        <a href="task-add.html" class="btn btn-sm btn-success">Thêm mới</a>
+                        <a href="task-add" class="btn btn-sm btn-success">Thêm mới</a>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>

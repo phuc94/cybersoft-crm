@@ -56,5 +56,26 @@ public class TaskRepo {
 		return taskList;
 		
 	}
+	
+	public int saveTask(String name, String start_date, String end_date, String user_id, String job_id) {
+		Connection conn = MysqlConfig.getConnection();
+		int result = 0;
+		String query = "INSERT INTO tasks (name, start_date, end_date, user_id, job_id, status_id)\r\n"
+				+ "VALUES (?, ?, ?, ?, ?, '1')";
+		
+		try {
+			PreparedStatement statement = conn.prepareStatement(query);
+			statement.setString(1, name);
+			statement.setString(2, start_date);
+			statement.setString(3, end_date);
+			statement.setString(4, user_id);
+			statement.setString(5, job_id);
+			result = statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("TaskRepo:findAll: " + e.getLocalizedMessage());
+		}
+		return result;
+	}
 
 }
