@@ -43,4 +43,11 @@ public class UserService {
 		}
 	}
 
+	public boolean deleteUser(int id) {
+		if (userRepo.deleteUser(id) == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

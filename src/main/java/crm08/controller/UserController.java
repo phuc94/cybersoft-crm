@@ -50,9 +50,7 @@ public class UserController extends HttpServlet {
 			String fullname = req.getParameter("fullname");
 			String avatar = req.getParameter("avatar");
 			String role_id = req.getParameter("role_id");
-			System.out.println(fullname);
 			if(userService.saveUser(email, password, fullname, avatar, role_id)) {
-				System.out.println("oke");
 				req.getRequestDispatcher("user.jsp").forward(req, resp);
 			} else {
 				req.getRequestDispatcher("user-add.jsp").forward(req, resp);
@@ -60,6 +58,16 @@ public class UserController extends HttpServlet {
 		} else {
 			req.getRequestDispatcher("user-add.jsp").forward(req, resp);
 		}
+	}
+
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String servletPath = req.getServletPath();
+		if (servletPath.equals("/user")) {
+			int id = Integer.parseInt(req.getParameter("id"));
+			userService.deleteUser(id);
+		}
+		req.getRequestDispatcher("user.jsp").forward(req, resp);
 	}
 	
 	
@@ -77,5 +85,6 @@ public class UserController extends HttpServlet {
 		req.setAttribute("roles", roleList);
 		req.getRequestDispatcher("user-add.jsp").forward(req, resp);
 	}
+
 
 }

@@ -96,9 +96,25 @@ public class UserRepo {
 			result = statement.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.out.println("UserRepo:findAll: " + e.getLocalizedMessage());
+			System.out.println("UserRepo:saveUser: " + e.getLocalizedMessage());
 		}
 		
+		return result;
+	}
+	
+	public int deleteUser(int id) {
+		String query = "DELETE FROM users WHERE id = ?";
+		int result = 0;
+		
+		try {
+			Connection conn = MysqlConfig.getConnection();
+			PreparedStatement statement = conn.prepareStatement(query);
+			statement.setInt(1, id);
+			result = statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("UserRepo:deleteUser: " + e.getLocalizedMessage());
+		}
 		return result;
 	}
 	
